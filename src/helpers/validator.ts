@@ -2,6 +2,7 @@ import Joi from "joi";
 import { Request, Response, NextFunction } from "express";
 import { BadRequestError } from "../core/ApiError";
 import { Types } from "mongoose";
+import { BadRequestResponse } from "../core/ApiResponse";
 
 export enum ValidationSource {
   BODY = "body",
@@ -43,7 +44,7 @@ export default (
       const message = details
         .map((i) => i.message.replace(/['"]+/g, ""))
         .join(",");
-      console.log(message);
+      new BadRequestResponse(message).send(res);
 
       next(new BadRequestError(message));
     } catch (error) {

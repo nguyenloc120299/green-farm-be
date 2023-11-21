@@ -49,7 +49,17 @@ async function findByEmail(email: string): Promise<User | null> {
     .lean()
     .exec();
 }
-
+async function findByAccountName(account: string): Promise<User | null> {
+  return UserModel.findOne({ account_name: account })
+    .select("+email +password +roles +account_name")
+    .populate({
+      path: "roles",
+      match: { status: true },
+      select: { code: 1 },
+    })
+    .lean()
+    .exec();
+}
 async function findFieldsById(
   id: Types.ObjectId,
   ...fields: string[]
@@ -125,4 +135,5 @@ export default {
   create,
   update,
   updateInfo,
+  findByAccountName,
 };

@@ -7,7 +7,10 @@ export const COLLECTION_NAME = "users";
 export default interface User {
   _id: Types.ObjectId;
   name?: string;
-  profilePicUrl?: string;
+  profile_avatar?: string;
+  account_name?: string;
+  gold_balance?: number;
+  money_balance?: number;
   email?: string;
   password?: string;
   roles: Role[];
@@ -19,14 +22,27 @@ export default interface User {
 
 const schema = new Schema<User>(
   {
+    account_name: {
+      type: Schema.Types.String,
+      trim: true,
+      maxlength: 70,
+    },
     name: {
       type: Schema.Types.String,
       trim: true,
       maxlength: 200,
     },
-    profilePicUrl: {
+    profile_avatar: {
       type: Schema.Types.String,
       trim: true,
+    },
+    gold_balance: {
+      type: Schema.Types.Number,
+      default: 0,
+    },
+    money_balance: {
+      type: Schema.Types.Number,
+      default: 0,
     },
     email: {
       type: Schema.Types.String,
@@ -74,7 +90,7 @@ const schema = new Schema<User>(
 );
 
 schema.index({ _id: 1, status: 1 });
-schema.index({ email: 1 });
+schema.index({ email: 1, user_name: 1 });
 schema.index({ status: 1 });
 
 export const UserModel = model<User>(DOCUMENT_NAME, schema, COLLECTION_NAME);

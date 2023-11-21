@@ -16,7 +16,7 @@ app.use(
 app.use(cors({ origin: "*", optionsSuccessStatus: 200 }));
 
 // Routes
-app.use("/", routes);
+app.use("/api", routes);
 
 // Socket
 const httpServer: Server = require("http").createServer(app);

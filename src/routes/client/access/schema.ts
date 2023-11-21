@@ -1,9 +1,9 @@
 import Joi from "joi";
-import { JoiAuthBearer } from "../../helpers/validator";
+import { JoiAuthBearer } from "../../../helpers/validator";
 
 export default {
   credential: Joi.object().keys({
-    email: Joi.string().required().email(),
+    account_name: Joi.string().required().min(3),
     password: Joi.string().required().min(6),
   }),
   refreshToken: Joi.object().keys({
@@ -16,8 +16,7 @@ export default {
     .unknown(true),
   signup: Joi.object().keys({
     name: Joi.string().required().min(3),
-    email: Joi.string().required().email(),
+    account_name: Joi.string().required().min(5),
     password: Joi.string().required().min(6),
-    profilePicUrl: Joi.string().optional().uri(),
   }),
 };
