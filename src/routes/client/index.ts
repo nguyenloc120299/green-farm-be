@@ -16,6 +16,6 @@ router.use(permission(Permission.GENERAL));
 /*---------------------------------------------------------*/
 
 router.use("/signup", signup);
-router.use("/login", login);
+router.use("/signin", login);
 
 export default router;

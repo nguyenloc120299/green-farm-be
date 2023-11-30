@@ -12,6 +12,7 @@ import asyncHandler from "../../../helpers/asyncHandler";
 import bcrypt from "bcrypt";
 import { RoleCode } from "../../../database/model/Role";
 import { getUserData } from "./utils";
+import { makeid } from "../../../utils";
 
 const router = express.Router();
 
@@ -27,12 +28,14 @@ router.post(
     const refreshTokenKey = crypto.randomBytes(64).toString("hex");
 
     const passwordHash = await bcrypt.hash(req.body.password, 10);
-
+    const code_invite = makeid(5);
     const { user: createdUser, keystore } = await UserRepo.create(
       {
         account_name: req.body.account_name,
         name: req.body.name,
         password: passwordHash,
+        code_invite,
+        parent_code: req.body.parent_code,
       } as User,
       accessTokenKey,
       refreshTokenKey,

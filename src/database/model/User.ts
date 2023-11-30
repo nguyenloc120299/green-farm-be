@@ -11,9 +11,12 @@ export default interface User {
   account_name?: string;
   gold_balance?: number;
   money_balance?: number;
+  active_point?: number;
   email?: string;
   password?: string;
   roles: Role[];
+  parent_code?: string;
+  code_invite?: string;
   verified?: boolean;
   status?: boolean;
   createdAt?: Date;
@@ -32,9 +35,21 @@ const schema = new Schema<User>(
       trim: true,
       maxlength: 200,
     },
+    parent_code: {
+      type: Schema.Types.String,
+      default: "",
+    },
+    code_invite: {
+      type: Schema.Types.String,
+      required: true,
+    },
     profile_avatar: {
       type: Schema.Types.String,
       trim: true,
+    },
+    active_point: {
+      type: Schema.Types.Number,
+      default: 0,
     },
     gold_balance: {
       type: Schema.Types.Number,

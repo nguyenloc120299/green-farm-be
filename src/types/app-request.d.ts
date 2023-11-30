@@ -1,7 +1,6 @@
-import { Request } from 'express';
-import User from '../database/model/User';
-import Keystore from '../database/model/Keystore';
-
+import { Request } from "express";
+import User from "../database/model/User";
+import Keystore from "../database/model/Keystore";
 
 declare interface PublicRequest extends Request {
   apiKey: any;

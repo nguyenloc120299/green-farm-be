@@ -13,6 +13,9 @@ export async function getUserData(user: User) {
     "account_name",
     "gold_balance",
     "money_balance",
+    "active_point",
+    "code_invite",
+    "parent_id",
   ]);
   return data;
 }

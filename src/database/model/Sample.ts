@@ -1,14 +1,14 @@
 import { Schema, model, Types } from "mongoose";
 
-export const DOCUMENT_NAME = "Sample";
-export const COLLECTION_NAME = "samples";
+export const DOCUMENT_NAME = "Referal";
+export const COLLECTION_NAME = "Referals";
 
 export enum Category {
   ABC = "ABC",
   XYZ = "XYZ",
 }
 
-export default interface Sample {
+export default interface Referal {
   _id: Types.ObjectId;
   category: Category;
   status?: boolean;
@@ -16,7 +16,7 @@ export default interface Sample {
   updatedAt?: Date;
 }
 
-const schema = new Schema<Sample>(
+const schema = new Schema<Referal>(
   {
     category: {
       type: Schema.Types.String,
@@ -43,7 +43,7 @@ const schema = new Schema<Sample>(
   }
 );
 
-export const SampleModel = model<Sample>(
+export const ReferalModel = model<Referal>(
   DOCUMENT_NAME,
   schema,
   COLLECTION_NAME

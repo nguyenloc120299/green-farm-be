@@ -8,7 +8,11 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 
 import { getUserData } from "./utils";
-import { SuccessResponse } from "../../../core/ApiResponse";
+import {
+  AuthFailureResponse,
+  BadRequestResponse,
+  SuccessResponse,
+} from "../../../core/ApiResponse";
 import validator from "../../../helpers/validator";
 import asyncHandler from "../../../helpers/asyncHandler";
 import UserRepo from "../../../database/repository/UserRepo";
@@ -25,11 +29,13 @@ router.post(
   asyncHandler(async (req: PublicRequest, res) => {
     const { account_name, password } = req.body;
     const user = await UserRepo.findByAccountName(account_name);
-    if (!user) throw new BadRequestError("User not registered");
-    if (!user.password) throw new BadRequestError("Credential not set");
+    if (!user) throw new BadRequestResponse("User not registered").send(res);
+    if (!user.password)
+      throw new BadRequestResponse("Credential not set").send(res);
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) throw new AuthFailureError("Authentication failure");
+    if (!match)
+      throw new AuthFailureResponse("Authentication failure").send(res);
 
     const accessTokenKey = crypto.randomBytes(64).toString("hex");
     const refreshTokenKey = crypto.randomBytes(64).toString("hex");

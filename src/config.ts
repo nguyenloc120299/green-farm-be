@@ -1,3 +1,5 @@
+import { LAND, PLANT, TYPE_LAND } from "./types/game-type";
+
 export const environment = process.env.NODE_ENV;
 export const port = process.env.PORT;
 export const timezone = process.env.TZ;
@@ -20,3 +22,249 @@ export const tokenInfo = {
 };
 
 export const corsUrl = process.env.CORS_URL || "*";
+
+export const A_MINUTE = 1000 * 60;
+
+export const lands: LAND[] = [
+  {
+    id: 1,
+    row: 9,
+    col: 2,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 2,
+    row: 9,
+    col: 3,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 3,
+    row: 9,
+    col: 4,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 4,
+    row: 9,
+    col: 5,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+
+  {
+    id: 6,
+    row: 10,
+    col: 2,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 7,
+    row: 10,
+    col: 3,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 8,
+    row: 10,
+    col: 4,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 9,
+    row: 10,
+    col: 5,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 10,
+    row: 11,
+    col: 2,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 11,
+    row: 11,
+    col: 3,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 12,
+    row: 11,
+    col: 4,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 13,
+    row: 11,
+    col: 5,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 14,
+    row: 12,
+    col: 2,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 15,
+    row: 12,
+    col: 3,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 16,
+    row: 12,
+    col: 4,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 16,
+    row: 12,
+    col: 5,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+
+  //------
+
+  {
+    id: 17,
+    row: 9,
+    col: 8,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 18,
+    row: 9,
+    col: 9,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 19,
+    row: 9,
+    col: 10,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 20,
+    row: 9,
+    col: 11,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+
+  {
+    id: 21,
+    row: 10,
+    col: 8,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 22,
+    row: 10,
+    col: 9,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 23,
+    row: 10,
+    col: 10,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 24,
+    row: 10,
+    col: 11,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 25,
+    row: 11,
+    col: 8,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 26,
+    row: 11,
+    col: 9,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 27,
+    row: 11,
+    col: 10,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 28,
+    row: 11,
+    col: 11,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 29,
+    row: 12,
+    col: 8,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 30,
+    row: 12,
+    col: 9,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 31,
+    row: 12,
+    col: 10,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+  {
+    id: 32,
+    row: 12,
+    col: 11,
+    price: 400000,
+    type: TYPE_LAND.MAIN,
+  },
+];
+export const plants: PLANT[] = [
+  {
+    id: 1,
+    harvest_balance: 15000,
+    name: {
+      original: "corn",
+      translated: "Ngô",
+    },
+    price: 10000,
+    time_harvest: A_MINUTE,
+  },
+];
