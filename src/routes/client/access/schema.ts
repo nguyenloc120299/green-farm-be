@@ -15,7 +15,6 @@ export default {
     })
     .unknown(true),
   signup: Joi.object().keys({
-    name: Joi.string().required().min(3),
     account_name: Joi.string().required().min(5),
     password: Joi.string().required().min(6),
   }),

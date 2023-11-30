@@ -16,6 +16,7 @@ export async function getUserData(user: User) {
     "active_point",
     "code_invite",
     "parent_id",
+    "game_id",
   ]);
   return data;
 }

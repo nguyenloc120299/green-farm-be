@@ -12,6 +12,7 @@ export default interface User {
   gold_balance?: number;
   money_balance?: number;
   active_point?: number;
+  game_id: number;
   email?: string;
   password?: string;
   roles: Role[];
@@ -29,6 +30,10 @@ const schema = new Schema<User>(
       type: Schema.Types.String,
       trim: true,
       maxlength: 70,
+    },
+    game_id: {
+      type: Schema.Types.Number,
+      required: true,
     },
     name: {
       type: Schema.Types.String,

@@ -4,7 +4,7 @@ import { RoleRequest } from "app-request";
 import crypto from "crypto";
 import UserRepo from "../../../database/repository/UserRepo";
 
-import User from "../../../database/model/User";
+import User, { UserModel } from "../../../database/model/User";
 import { createTokens } from "../../../auth/authUtils";
 import validator from "../../../helpers/validator";
 import schema from "./schema";
@@ -24,6 +24,12 @@ router.post(
 
     if (user) throw new BadRequestResponse("User already registered").send(res);
 
+    const highestUser = await UserModel.findOne(
+      {},
+      {},
+      { sort: { id_custom: -1 } }
+    );
+    const nextUserID = highestUser ? highestUser.game_id + 1 : 10000;
     const accessTokenKey = crypto.randomBytes(64).toString("hex");
     const refreshTokenKey = crypto.randomBytes(64).toString("hex");
 
@@ -32,8 +38,9 @@ router.post(
     const { user: createdUser, keystore } = await UserRepo.create(
       {
         account_name: req.body.account_name,
-        name: req.body.name,
+        name: `User` + nextUserID,
         password: passwordHash,
+        game_id: nextUserID,
         code_invite,
         parent_code: req.body.parent_code,
       } as User,
