@@ -7,9 +7,10 @@ import MyLand, { Category } from "database/model/MyLand";
 import MyLandRepo from "database/repository/MyLandRepo";
 import UserRepo from "database/repository/UserRepo";
 import express from "express";
-import { LAND } from "game-type";
+import schema from "./schema";
 import asyncHandler from "helpers/asyncHandler";
 import _ from "lodash";
+import validator from "helpers/validator";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.use(authentication);
 
 router.post(
   "/buy-land",
+  validator(schema.buyLand),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const { land_id } = req.body;
     const user = await UserRepo.findPrivateProfileById(req.user._id);
