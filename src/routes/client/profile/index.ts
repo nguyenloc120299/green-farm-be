@@ -8,6 +8,7 @@ import { getUserData } from "../access/utils";
 import _ from "lodash";
 import validator from "helpers/validator";
 import schema from "./schema";
+import MyLandRepo from "database/repository/MyLandRepo";
 
 const router = express.Router();
 
@@ -21,7 +22,11 @@ router.get(
     const user = await UserRepo.findPrivateProfileById(req.user._id);
     if (!user) throw new BadRequestResponse("User not registered").send(res);
     const userData = getUserData(user);
-    return new SuccessResponse("success", userData).send(res);
+    const myland = MyLandRepo.findLandByUserId(user._id); 
+    return new SuccessResponse("success", {
+      userData,
+      myland,
+    }).send(res);
   })
 );
 

@@ -24,10 +24,18 @@ async function findByLandId(land_id: number,user_id:Types.ObjectId): Promise<MyL
     .lean()
     .exec();
 }
+async function findLandByUserId(user_id:Types.ObjectId): Promise<MyLand[] | []> {
+  return MyLandModel.find({
+    user_id
+  })
+    .lean()
+    .exec();
+}
 
 export default {
   findById,
   create,
   update,
-  findByLandId
+  findByLandId,
+  findLandByUserId
 };
