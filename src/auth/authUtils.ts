@@ -13,6 +13,7 @@ export const getAccessToken = (authorization?: string) => {
 };
 
 export const validateTokenData = (payload: JwtPayload): boolean => {
+
   if (
     !payload ||
     !payload.iss ||

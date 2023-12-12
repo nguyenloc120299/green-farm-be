@@ -1,14 +1,14 @@
 import { ProtectedRequest } from "app-request";
-import authentication from "auth/authentication";
-import { BadRequestResponse, SuccessResponse } from "core/ApiResponse";
-import UserRepo from "database/repository/UserRepo";
+import authentication from "../../../auth/authentication";
+import { BadRequestResponse, SuccessResponse } from "../../../core/ApiResponse";
+import UserRepo from "../../../database/repository/UserRepo";
 import express from "express";
-import asyncHandler from "helpers/asyncHandler";
+import asyncHandler from "../../../helpers/asyncHandler";
 import { getUserData } from "../access/utils";
 import _ from "lodash";
-import validator from "helpers/validator";
+import validator from "../../../helpers/validator";
 import schema from "./schema";
-import MyLandRepo from "database/repository/MyLandRepo";
+import MyLandRepo from "../../../database/repository/MyLandRepo";
 
 const router = express.Router();
 
@@ -21,8 +21,8 @@ router.get(
   asyncHandler(async (req: ProtectedRequest, res) => {
     const user = await UserRepo.findPrivateProfileById(req.user._id);
     if (!user) throw new BadRequestResponse("User not registered").send(res);
-    const userData = getUserData(user);
-    const myland = MyLandRepo.findLandByUserId(user._id); 
+    const userData = await getUserData(user);
+    const myland = await MyLandRepo.findLandByUserId(user._id);
     return new SuccessResponse("success", {
       userData,
       myland,
@@ -42,3 +42,5 @@ router.put(
     return new SuccessResponse("Profile updated", data).send(res);
   })
 );
+
+export default router;

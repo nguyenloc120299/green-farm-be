@@ -1,4 +1,4 @@
-import MyLand, { MyLandModel } from "database/model/MyLand";
+import MyLand, { MyLandModel } from "../../database/model/MyLand";
 import { Types } from "mongoose";
 
 async function findById(id: Types.ObjectId): Promise<MyLand | null> {
