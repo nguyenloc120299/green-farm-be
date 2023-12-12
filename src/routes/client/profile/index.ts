@@ -9,6 +9,7 @@ import _ from "lodash";
 import validator from "../../../helpers/validator";
 import schema from "./schema";
 import MyLandRepo from "../../../database/repository/MyLandRepo";
+import { lands } from "../../../config";
 
 const router = express.Router();
 
@@ -19,13 +20,34 @@ router.use(authentication);
 router.get(
   "/me",
   asyncHandler(async (req: ProtectedRequest, res) => {
+    let myLandData = [] as Array<any>;
     const user = await UserRepo.findPrivateProfileById(req.user._id);
     if (!user) throw new BadRequestResponse("User not registered").send(res);
     const userData = await getUserData(user);
     const myland = await MyLandRepo.findLandByUserId(user._id);
+
+    if (!myland.length) myLandData = lands;
+    else {
+      const newLandFormat = lands.map((item) => {
+        const landBought = _.find(myland, { land_id: item.id });
+        if (landBought)
+          return {
+            ...landBought,
+            ...item,
+          };
+        return {
+          ...item,
+          land_id: item.id,
+        };
+      });
+      myLandData = newLandFormat;
+    }
     return new SuccessResponse("success", {
-      userData,
-      myland,
+      userData: {
+        userData,
+        landNotBuy: myland?.length  || 0,
+      },
+      myland: myLandData,
     }).send(res);
   })
 );

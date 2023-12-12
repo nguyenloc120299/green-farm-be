@@ -1,7 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
 export const DOCUMENT_NAME = "MyLand";
-export const COLLECTION_NAME = "MyLands";
+export const COLLECTION_NAME = "my_lands";
 
 export enum Category {
   PLANTING = "Planting",
