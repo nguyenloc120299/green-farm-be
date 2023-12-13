@@ -1,12 +1,8 @@
 import express from "express";
-
 import schema from "./schema";
-
 import { PublicRequest } from "app-request";
-
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-
 import { getUserData } from "./utils";
 import {
   AuthFailureResponse,
@@ -16,8 +12,6 @@ import {
 import validator from "../../../helpers/validator";
 import asyncHandler from "../../../helpers/asyncHandler";
 import UserRepo from "../../../database/repository/UserRepo";
-import { BadRequestError } from "../../../core/ApiError";
-import { AuthFailureError } from "../../../core/ApiError";
 import KeystoreRepo from "../../../database/repository/KeystoreRepo";
 import { createTokens } from "../../../auth/authUtils";
 
