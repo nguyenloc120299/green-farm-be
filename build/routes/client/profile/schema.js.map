@@ -1,0 +1,1 @@
+{"version":3,"file":"schema.js","sourceRoot":"","sources":["../../../../src/routes/client/profile/schema.ts"],"names":[],"mappings":";;;;;AACA,8CAAsB;AAEtB,kBAAe;IACb,OAAO,EAAE,aAAG,CAAC,MAAM,EAAE,CAAC,IAAI,CAAC;QACzB,IAAI,EAAE,aAAG,CAAC,MAAM,EAAE,CAAC,IAAI,EAAE,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,QAAQ,EAAE;KAC/C,CAAC;CACH,CAAC"}
