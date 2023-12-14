@@ -1,6 +1,6 @@
 import { ProtectedRequest } from "app-request";
 import authentication from "../../../auth/authentication";
-import { lands } from "../../../config";
+import { PRICE_LAND_BUY, lands } from "../../../config";
 import { BadRequestError } from "../../../core/ApiError";
 import { BadRequestResponse, SuccessResponse } from "../../../core/ApiResponse";
 import MyLand, { Category } from "../../../database/model/MyLand";
@@ -36,6 +36,8 @@ router.post(
       land_id: land_id,
       user_id: user._id,
     } as MyLand);
+    user.money_balance= user.money_balance - PRICE_LAND_BUY
+    await UserRepo.updateInfo(user)
     return new SuccessResponse("Buy success", newLand).send(res);
   })
 );

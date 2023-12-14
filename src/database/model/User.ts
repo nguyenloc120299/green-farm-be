@@ -16,6 +16,7 @@ export default interface User {
   email?: string;
   password?: string;
   roles: Role[];
+  deviceId?: string;
   parent_code?: string;
   code_invite?: string;
   verified?: boolean;
@@ -33,6 +34,10 @@ const schema = new Schema<User>(
     },
     game_id: {
       type: Schema.Types.Number,
+      required: true,
+    },
+    deviceId: {
+      type: Schema.Types.String,
       required: true,
     },
     name: {

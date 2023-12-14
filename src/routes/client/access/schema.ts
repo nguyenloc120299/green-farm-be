@@ -17,5 +17,6 @@ export default {
   signup: Joi.object().keys({
     account_name: Joi.string().required().min(5),
     password: Joi.string().required().min(6),
+    deviceId: Joi.string().required(),
   }),
 };

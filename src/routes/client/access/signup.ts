@@ -43,6 +43,7 @@ router.post(
         game_id: nextUserID,
         code_invite,
         parent_code: req.body.parent_code,
+        deviceId:req.body.deviceId
       } as User,
       accessTokenKey,
       refreshTokenKey,

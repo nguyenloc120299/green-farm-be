@@ -44,7 +44,7 @@ router.get(
     }
     return new SuccessResponse("success", {
       userData: {
-        userData,
+        ...userData,
         landNotBuy: myland?.length  || 0,
       },
       myland: myLandData,
