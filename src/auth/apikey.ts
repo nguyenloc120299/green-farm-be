@@ -16,9 +16,9 @@ export default router.use(
     
 
     if (!key) throw new ForbiddenError();
-
+    console.log("🚀 ~ file: apikey.ts:16 ~ asyncHandler ~ key:", key)
     const apiKey = await ApiKeyRepo.findByKey(key);
-    console.log("🚀 ~ file: apikey.ts:16 ~ asyncHandler ~ key:", apiKey)
+
     if (!apiKey) throw new ForbiddenError();
 
     req.apiKey = apiKey;
