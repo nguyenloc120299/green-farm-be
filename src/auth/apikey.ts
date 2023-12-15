@@ -13,12 +13,12 @@ export default router.use(
   validator(schema.apiKey, ValidationSource.HEADER),
   asyncHandler(async (req: PublicRequest, res, next) => {
     const key = req.headers[Header.API_KEY]?.toString();
-    console.log("🚀 ~ file: apikey.ts:16 ~ asyncHandler ~ key:", key)
+    
 
     if (!key) throw new ForbiddenError();
 
     const apiKey = await ApiKeyRepo.findByKey(key);
-
+    console.log("🚀 ~ file: apikey.ts:16 ~ asyncHandler ~ key:", apiKey)
     if (!apiKey) throw new ForbiddenError();
 
     req.apiKey = apiKey;
