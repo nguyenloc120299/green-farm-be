@@ -2,10 +2,7 @@ import { ProtectedRequest } from "app-request";
 import authentication from "../../../auth/authentication";
 import { PRICE_LAND_BUY, lands, plants } from "../../../config";
 import { BadRequestError } from "../../../core/ApiError";
-import {
-  BadRequestResponse,
-  SuccessResponse,
-} from "../../../core/ApiResponse";
+import { BadRequestResponse, SuccessResponse } from "../../../core/ApiResponse";
 import MyLand, { Category } from "../../../database/model/MyLand";
 import MyLandRepo from "../../../database/repository/MyLandRepo";
 import UserRepo from "../../../database/repository/UserRepo";
@@ -61,20 +58,24 @@ router.post(
         "This plot of land already has plants"
       ).send(res);
     const plantCurrent = plants.find((p) => p.id == plant_id);
+    const landCurrent = lands.find((l) => l.id === land_id);
     if (!plantCurrent)
       return new BadRequestResponse("This plant was not found").send(res);
     if (!user.money_balance || user.money_balance < plantCurrent.price)
       return new BadRequestResponse("You don't have enough money").send(res);
     myLand.status = true;
     myLand.plant_id = plant_id;
-    myLand.category=Category.PLANTING
+    myLand.category = Category.PLANTING;
     myLand.time_start = new Date().getTime();
     myLand.time_end = new Date().getTime() + plantCurrent.time_harvest;
     myLand.harvest_balance = plantCurrent.harvest_balance;
     await MyLandRepo.update(myLand);
     user.money_balance = user.money_balance - PRICE_LAND_BUY;
     await UserRepo.updateInfo(user);
-    return new SuccessResponse("Planted success", myLand).send(res);
+    return new SuccessResponse("Planted success", {
+      ...myLand,
+      ...landCurrent,
+    }).send(res);
   })
 );
 export default router;
