@@ -11,7 +11,7 @@ export enum Category {
 
 export default interface MyLand {
   _id: Types.ObjectId;
-  plant_id?: number;
+  plant_id?: number | null;
   user_id: Types.ObjectId;
   land_id: number;
   category: Category;
@@ -63,7 +63,7 @@ const schema = new Schema<MyLand>(
 );
 
 schema.index({ _id: 1, status: 1 });
-schema.index({ plant_id: 1, user_id: 1 });
+schema.index({ plant_id: 1, user_id: 1,land_id: 1 });
 
 export const MyLandModel = model<MyLand>(
   DOCUMENT_NAME,

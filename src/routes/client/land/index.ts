@@ -44,6 +44,7 @@ router.post(
 
 router.post(
   "/plant",
+  validator(schema.buyPlant),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const { land_id, plant_id } = req.body;
     const user = await UserRepo.findPrivateProfileById(req.user._id);
@@ -76,6 +77,42 @@ router.post(
       ...myLand,
       ...landCurrent,
     }).send(res);
+  })
+);
+
+router.post(
+  "/havest",
+  asyncHandler(async (req: ProtectedRequest, res) => {
+    const { land_id } = req.body;
+    const user = await UserRepo.findPrivateProfileById(req.user._id);
+    if (!user) throw new BadRequestError("User not registered");
+    const land = lands.find((i) => i.id === land_id);
+    if (!land) return new BadRequestResponse("Land not found").send(res);
+    const myLand = await MyLandRepo.findByLandId(land_id, user._id);
+    if (!myLand || !myLand.time_end)
+      return new BadRequestResponse(
+        "You have not purchased this plot of land yet"
+      ).send(res);
+    if (myLand.category != Category.PLANTING)
+      return new BadRequestResponse("There are no crops").send(res);
+    const plantCurrent = plants.find((p) => p.id == myLand.plant_id);
+    if (!plantCurrent)
+      return new BadRequestResponse("This plant was not found").send(res);
+    if (myLand.time_end > new Date().getTime()) {
+      return new BadRequestResponse("It's not harvest time yet").send(res);
+    }
+    user.gold_balance = myLand.harvest_balance;
+    await UserRepo.updateInfo(user);
+    myLand.plant_id = null;
+    myLand.category = Category.NO_PLANT;
+    myLand.time_start = 0;
+    myLand.time_end = 0;
+    myLand.harvest_balance = 0;
+    await MyLandRepo.update(myLand);
+    return new SuccessResponse("Havest success", {
+      land: { ...myLand, ...land },
+      user,
+    });
   })
 );
 export default router;
