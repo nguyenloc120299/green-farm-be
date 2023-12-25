@@ -62,7 +62,7 @@ router.post(
     const landCurrent = lands.find((l) => l.id === land_id);
     if (!plantCurrent)
       return new BadRequestResponse("This plant was not found").send(res);
-    if (!user.money_balance || user.money_balance < plantCurrent.price)
+    if (!user.gold_balance || user.gold_balance < plantCurrent.price)
       return new BadRequestResponse("You don't have enough money").send(res);
     myLand.status = true;
     myLand.plant_id = plant_id;
@@ -70,12 +70,15 @@ router.post(
     myLand.time_start = new Date().getTime();
     myLand.time_end = new Date().getTime() + plantCurrent.time_harvest;
     myLand.harvest_balance = plantCurrent.harvest_balance;
-    await MyLandRepo.update(myLand);
-    user.money_balance = user.money_balance - PRICE_LAND_BUY;
+    user.gold_balance = user.gold_balance - plantCurrent.price;
     await UserRepo.updateInfo(user);
+    await MyLandRepo.update(myLand);
     return new SuccessResponse("Planted success", {
-      ...myLand,
-      ...landCurrent,
+      landResult: {
+        ...myLand,
+        ...landCurrent,
+      },
+      user,
     }).send(res);
   })
 );
@@ -101,8 +104,10 @@ router.post(
     if (myLand.time_end > new Date().getTime()) {
       return new BadRequestResponse("It's not harvest time yet").send(res);
     }
-    user.gold_balance = myLand.harvest_balance;
+    user.gold_balance =
+      (user.gold_balance || 0) + (myLand.harvest_balance || 0);
     await UserRepo.updateInfo(user);
+
     myLand.plant_id = null;
     myLand.category = Category.NO_PLANT;
     myLand.time_start = 0;
@@ -112,7 +117,7 @@ router.post(
     return new SuccessResponse("Havest success", {
       land: { ...myLand, ...land },
       user,
-    });
+    }).send(res);
   })
 );
 export default router;
