@@ -1,4 +1,3 @@
-import { JoiObjectId } from "helpers/validator";
 import Joi from "joi";
 
 export default {
@@ -8,5 +7,8 @@ export default {
   buyPlant: Joi.object().keys({
     land_id: Joi.number().required(),
     plant_id: Joi.number().required(),
+  }),
+  havestPlant: Joi.object().keys({
+    land_id: Joi.number().required(),
   }),
 };
