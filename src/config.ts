@@ -23,7 +23,7 @@ export const tokenInfo = {
 
 export const corsUrl = process.env.CORS_URL || "*";
 
-export const A_MINUTE = 1000 * 60;
+export const A_MINUTE = 1000 * 60 * 2;
 
 export const PRICE_LAND_BUY = 400000;
 export const RATIO_GOLD = 10;

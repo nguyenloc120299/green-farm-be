@@ -6,6 +6,7 @@ import signup from "./access/signup";
 import login from "./access/login";
 import profile from "./profile"
 import land from './land'
+import accounts from './account'
 const router = express.Router();
 
 /*---------------------------------------------------------*/
@@ -20,5 +21,6 @@ router.use("/signup", signup);
 router.use("/signin", login);
 router.use("/profile",profile)
 router.use("/farm",land)
+router.use('/accounts',accounts)
 
 export default router;

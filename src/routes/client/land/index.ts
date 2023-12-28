@@ -85,6 +85,7 @@ router.post(
 
 router.post(
   "/havest",
+  validator(schema.havestPlant),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const { land_id } = req.body;
     const user = await UserRepo.findPrivateProfileById(req.user._id);
