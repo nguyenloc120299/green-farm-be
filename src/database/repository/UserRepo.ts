@@ -10,12 +10,8 @@ async function exists(id: Types.ObjectId): Promise<boolean> {
   return user !== null && user !== undefined;
 }
 
-async function findUsers(): Promise<any> {
-  return UserModel.find()
-    .sort({ money_balance: -1 })
-    .limit(50)
-    .lean<User>()
-    .exec();
+async function findUsers(sort: any): Promise<any> {
+  return UserModel.find().sort(sort).limit(50).lean<User>().exec();
 }
 async function findPrivateProfileById(
   id: Types.ObjectId
@@ -143,5 +139,5 @@ export default {
   update,
   updateInfo,
   findByAccountName,
-  findUsers
+  findUsers,
 };
